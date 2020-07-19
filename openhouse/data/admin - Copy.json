@@ -1,0 +1,37 @@
+{
+    "properties": [
+        { "name": "1728 Marian Ln.", "path": "1728 Marian Ln 2016-06-26" },
+        { "name": "1728 Marian Ln", "path": "1728 Marian Ln 2016-07-04" }
+    ],
+    "active": "1728 Marian Ln 2016-07-04",
+    "images": [
+        {
+            "path": "1728 Marian Ln 2016-07-04",
+            "images": [
+                { "src": "elevation.JPG", "alt": "elevation.JPG" },
+                { "src": "master1.JPG", "alt": "master1.JPG" },
+                { "src": "pool5.jpg", "alt": "pool5.jpg" },
+                { "src": "kitchen.JPG", "alt": "kitchen.JPG" }
+            ]
+        },
+        {
+            "path": "1728 Marian Ln 2016-06-26",
+            "images": [
+                { "src": "elevation.jpg", "alt": "Front elevation" },
+                { "src": "kitchen.jpg", "alt": "Kitchen" },
+                { "src": "master1.jpg", "alt": "Master bedroom" },
+                { "src": "master fireplace.jpg", "alt": "Master fireplace" },
+                { "src": "pool5.jpg", "alt": "Pool" },
+                { "src": "master bathroom shower.jpg", "alt": "Master shower" },
+                { "src": "breakfast area and fireplace.jpg", "alt": "Breakfast area" },
+                { "src": "family2.jpg", "alt": "Family room" },
+                { "src": "family.jpg", "alt": "Family room" },
+                { "src": "dining.jpg", "alt": "Dining room" },
+                { "src": "living.jpg", "alt": "Living room" },
+                { "src": "game.jpg", "alt": "Game room" },
+                { "src": "pool4.jpg", "alt": "Pool" },
+                { "src": "back of house.jpg", "alt": "Back of house" }
+            ]
+        }
+    ] 
+}

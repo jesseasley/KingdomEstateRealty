@@ -1,0 +1,222 @@
+.interior
+{
+    BACKGROUND: #FFFF00; 
+    BACKGROUND: #FFFFFF; 
+}
+TD
+{
+    FONT-SIZE: 13px;
+}
+.coloredbackground
+{
+    BACKGROUND-COLOR: #306090
+}
+.mainpagecaption
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 22px;
+    COLOR: #0;
+}
+.whitetext
+{
+	color: #ffffff;
+}
+.pageheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 20px;
+    COLOR: #000066;
+    text-align:center;
+}
+.sectionheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #000066;
+    text-align:center;
+}
+.sectionheadingwhite
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #ffffff;
+    text-align:center;
+}
+.smallheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #000066;
+    text-align:center
+}
+.smallheadingwhite
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #ffffff;
+    text-align:center
+}
+.text
+{
+    FONT-SIZE: 12px;
+    COLOR: #000066;
+}
+.strikethroughtext 
+	{ 
+    COLOR: #000066;
+	font-size: 9pt; 
+	text-decoration:line-through
+	}
+.greytext
+{
+    FONT-SIZE: 12px;
+    COLOR: #9393FF;
+}
+.strikethroughgreytext 
+	{ 
+    COLOR: #9393FF;
+	font-size: 9pt; 
+	text-decoration:line-through
+	}
+.small
+{
+    FONT-SIZE: 11px;
+    COLOR: #000066;
+}
+.textwhite
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #ffffff;
+}
+.error
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    COLOR: #A60000;
+}
+.fieldfailedvalidation
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #A60000;
+}
+.legal
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 9px;
+    COLOR: #000066;
+    text-align:center
+}.button
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #000066;
+}
+TABLE#menus
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    WIDTH: 400px;
+    BORDER-BOTTOM: 0px;
+    BACKGROUND-COLOR: #306090;
+    cellpadding: 1;
+    cellspacing: 0
+}
+A#menus
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 155px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#menus
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    BORDER-LEFT: 1px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px outset;
+    BACKGROUND-COLOR: #ccccff
+}
+A#activemenu
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 155px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #0066cc;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#activemenu
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    BORDER-LEFT: 1px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px outset;
+    BACKGROUND-COLOR: #ccccff
+}
+A#button
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 200px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #306090;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#button
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    BORDER-LEFT: 1px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px outset;
+    BACKGROUND-COLOR: #ccccff
+}
+A#smallbutton
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 50px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #306090;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#smallbutton
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    BORDER-LEFT: 1px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px outset;
+    BACKGROUND-COLOR: #ccccff
+}

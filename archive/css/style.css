@@ -1,0 +1,173 @@
+.heading     { font-size: 20pt; font-family: Verdana; font-weight: bold; vertical-align:top}
+.LeftBorder  { border-left: 1px solid #372604 }
+.RightBorder  { border-right: 1px solid #372604 }
+.BottomBorder  { border-bottom: 1px solid #372604 }
+.DividingLine { background-color: #372604 }
+.MainArea    { background-color: #FFE187 }
+.subheading     { font-size: 16pt; font-family: Verdana; font-weight: bold; vertical-align:top }
+.listingheading     { font-size: 12pt; font-family: Verdana; font-weight: bold; vertical-align:top }
+.smalltext     { font-size: 8pt; font-family: Verdana; vertical-align:top }
+.text     
+{ 
+	color: #493306;
+	font-size: 9pt; 
+	font-family: Verdana; 
+	vertical-align:top 
+}
+.pageheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 20px;
+    COLOR: #493306;
+    text-align:center;
+}
+.fieldfailedvalidation
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #A60000;
+}
+.greytext
+{
+    COLOR: #B37D0F;
+	font-size: 9pt; 
+	font-family: Verdana; 
+	vertical-align:top 
+}
+.small
+{
+    FONT-SIZE: 9px;
+    COLOR: #493306;
+}
+.error
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    COLOR: #493306;
+}
+.sectionheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #493306;
+    text-align:center;
+}
+.sectionheadingwhite
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #ffffff;
+    text-align:center;
+}
+.menus     
+{ 
+	border-right:1px solid #372604; 
+	font-size: 13pt; 
+	font-family: Verdana; 
+	font-weight: bold; 
+	vertical-align:top; 
+	border-left-width:1px; 
+	border-top-width:1px; 
+	border-bottom-width:1px 
+}
+.smallheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #493306;
+    text-align:center
+}
+A#button
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 135px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #493306 ;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#button
+{
+    border-style:outset; 
+    border-width:1px; 
+    COLOR: #000000;
+    BACKGROUND-COLOR: #EAAA01
+}
+A#specialbutton
+{
+    border-style:outset; 
+    border-width:1px; 
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    WIDTH: 135px;
+    height: 40px;
+    COLOR: #FFFFCC;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #FF0000 ;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none; 
+    vertical-align:middle; 
+    padding-top:3px
+}
+a:hover#specialbutton
+{
+    border-style:outset; 
+    border-width:1px; 
+    COLOR: #000000;
+    BACKGROUND-COLOR: #EAAA01
+}
+.strikethroughtext 
+	{ 
+	color: #493306;
+	font-size: 9pt; 
+	font-family: Verdana; 
+	vertical-align:top;
+	text-decoration:line-through
+	}
+.strikethroughgreytext 
+	{ 
+    COLOR: #B37D0F;
+	font-size: 9pt; 
+	font-family: Verdana; 
+	vertical-align:top;
+	text-decoration:line-through
+	}
+tr#menus
+{
+	height: 20px;
+}
+body         
+{ 
+	background-color: #E3E6EF
+}
+A#smallbutton
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 9pt;
+    BORDER-LEFT: 1px outset;
+    WIDTH: 50px;
+    COLOR: #ffffcc;
+    BORDER-BOTTOM: 1px outset;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #493306 ;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none
+}
+a:hover#smallbutton
+{
+    BORDER-RIGHT: 1px outset;
+    BORDER-TOP: 1px outset;
+    BORDER-LEFT: 1px outset;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px outset;
+    BACKGROUND-COLOR: #EAAA01
+}

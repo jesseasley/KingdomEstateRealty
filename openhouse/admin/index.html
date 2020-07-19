@@ -1,0 +1,344 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Open House Manager - Administration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        #sortable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 850px;
+        }
+
+            #sortable li {
+                margin: 3px 3px 3px 0;
+                padding: 1px;
+                float: left;
+                height: 100px;
+                font-size: 4em;
+                text-align: center;
+            }
+    </style>
+    <script>
+        var ordered_imgs;
+        var admin;
+        var path;
+        var paths;
+        var reg;
+        $(function () {
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
+        });
+        $(document).ready(function () {
+            $("#checkmark").hide();
+            loadAdmin();
+        });
+        function getPaths() {
+            $.ajax({
+                url: "getPaths.php",
+                success: function (data) {
+                    html = "<table class=\"table table-striped\" border='0' cellpadding=0 cellspacing=0><tr><th>" +
+                        "<b>Existing paths</b></th>";
+                    html += "<th><b>Name</b></th><th style=\"text-align:center;\"><b>Active</b></th>";
+                    html += "<th style=\"text-align:center;\"><b>Claimed</b></th><th style=\"text-align:center;\">" +
+                        "<b>Action</b></th></tr>";
+                    paths = eval("(" + data + ")");
+                    //alert(paths.length);
+                    for (var j = 0; j < paths.length; j++) {
+                        if (paths[j].path == admin.active) {
+                            paths[j].active = "true";
+                        }
+                        for (var i = 0; i < admin.properties.length; i++) {
+                            if (paths[j].path == admin.properties[i].path) {
+                                paths[j].exists = "true";
+                                paths[j].name = admin.properties[i].name;
+                            }
+                        }
+                    }
+                    for (var j = 0; j < paths.length; j++) {
+                        html += "<tr><td>" + paths[j].path + "</td><td>";
+                        if (paths[j].exists == "true")
+                            html += "<input class=\"form-control\" path=\"" + j + "\" type='text' value='" + paths[j].name + "'>";
+                        else
+                            html += "<input class=\"form-control\"path=\"" + j + "\" type='text' disabled>";
+                        html += "</td><td align='center'><div path=\"" + j + "\" iType='active'>";
+                        if (paths[j].active == "true")
+                            html += "<img path=\"" + j + "\" src='../images/checkmark.jpg' height='15px' />";
+                        else
+                            if (paths[j].exists == "true")
+                                html += "<button class=\"btn btn-default\" path=\"" + j + "\" onclick=\"setActive('" + j +
+                                    "');\">Set active</button>";
+                            else
+                                html += "<button class=\"btn btn-default\" path=\"" + j + "\" onclick=\"setActive('" + j +
+                                    "');\" disabled>Set active</button>";
+                        html += "</div></td><td align='center'><div path=\"" + j + "\" iType='claim'>";
+                        if (paths[j].exists == "true")
+                            html += "<img src='../images/checkmark.jpg' height='15px' />";
+                        else
+                            html += "<button class=\"btn btn-default\" iType='claim' path=\"" + j + "\" onclick=\"claim('" +
+                                j + "');\">Claim</button>";
+                        html += "</div></td><td align='center'>";
+                        if (paths[j].exists == "true"){
+                            html += "<button class=\"btn btn-default\" path=\"" + j + "\" onclick=\"doSave('" + j +
+                                "');\">Save</button>";
+                            html += "<span path=\"" + j + "\" hidden><img src='../images/checkmark.jpg' height='15px' /></span>";
+                        }
+                        else
+                            html += "<button class=\"btn btn-default\" path=\"" + j + "\" disabled onclick=\"doSave('" + j +
+                                "');\">Save</button>";
+
+                        html += "</td></tr>";
+                    }
+                    $("#folders").html(html);
+                }
+            }).fail(function () {
+                alert("getPaths ajax call failed");
+            });
+        }
+        function doSave(j) {
+            for (var i = 0; i < admin.properties.length; i++)
+                if (admin.properties[i].path == paths[j].path)
+                    admin.properties[i].name = $("input[path='" + j + "']").val();
+            //$("admin.properties[path='" + paths[j].path + "'").attr("name", $("input[path='" + j + "']").val());
+            saveJSON();
+        }
+        function claim(j) {
+            $("button[path='" + j + "']").removeAttr("disabled");
+            $("input[path='" + j + "']").removeAttr("disabled");
+            $("button[path='" + j + "'][iType='claim']").attr("disabled", "disabled");
+            $("div[path='" + j + "'][iType='claim']").html("<img src='../images/checkmark.jpg' height='15px' />");
+            paths[j].exists == "true";
+            admin.properties.push({ "name": "", "path": paths[j].path });
+            //alert(JSON.stringify(admin.properties));
+            $.ajax({
+                url: "getFiles.php",
+                data: { path: paths[j].path },
+                success: function (data) {
+                    //alert(data);
+                    files = eval("(" + data + ")");
+                    admin.images.push({ path: paths[j].path, images: [] });
+                    for (var i = 0; i < files.files.length; i++)
+                    {
+                        admin.images[admin.images.length - 1].images.push({ src: files.files[i], alt: files.files[i] });
+                    }
+                    //alert(JSON.stringify(admin.images[admin.images.length - 1]));
+                    $.ajax(
+                    {
+                        url: "../saveRegistrations.php",
+                        data: { path: paths[j].path, json: "({ \"registered\": [] })" },
+                        success: function (data) {
+                            saveJSON();
+                        }
+                    }).fail(function () {
+                        alert("doSaveReg ajax call failed");
+                    });
+                }
+            }).fail(function () {
+                alert("claim ajax call failed");
+            });
+        }
+        function setActive(j) {
+            for (var i=0;i<paths.length;i++){
+                if (paths[i].path == admin.active) {
+                    $("div[path='" + i + "'][iType='active']").html("<button class=\"btn btn-default\" path=\"" + i +
+                        "\" onclick=\"setActive('" + i + "');\">Set active</button>");
+                }
+            }
+            $("div[path='" + j + "'][iType='active']").html("<img path=\"" + j + "\" src='../images/checkmark.jpg' height='15px' />");
+            admin.active = paths[j].path;
+            $("#title").html("<h3>Current active property path: " + admin.active + "</h3>");
+            $("li").each(function () {
+                this.parentNode.removeChild(this);
+            })
+            //ordered_imgs = admin.activeImages;
+            for (var i = 0; i < admin.images.length; i++) {
+                if (admin.images[i].path == admin.active)
+                    ordered_imgs = admin.images[i].images;
+            }
+            for (i = 0; i < ordered_imgs.length; i++)
+                $("#sortable").append("<li class='ui-state-default'><img class='img-responsive' height='100px' " +
+                    "width=\"100px\" src='../data/" +
+                    admin.active + "/" + ordered_imgs[i].src + "' altsrc='" + ordered_imgs[i].src + "' alt='" +
+                    ordered_imgs[i].alt + "'></li>");
+            loadRegistrationsJSON();
+            saveJSON();
+            //calcOrder();
+            //loadImages();
+        }
+        function loadAdmin() {
+            $.ajax({
+                url: "../readAdmin.php",
+                success: function (data) {
+                    admin = eval("(" + data + ")");
+                    for (var i = 0; i < admin.properties.length; i++) {
+                        if (admin.properties[i].path == admin.active) {
+                            $("#title").html("<h3>Current active property path: " + admin.properties[i].path + "</h3>");
+                            path = admin.properties[i].path;
+                            getPaths();
+                            loadImages();
+                        }
+                    }
+                }
+            }).fail(function () {
+                alert("loadAdmin ajax call failed");
+            });
+        }
+        function loadImages() {
+            for (var i = 0; i < admin.images.length; i++) {
+                if (admin.images[i].path == admin.active)
+                    ordered_imgs = admin.images[i].images;
+            }
+            //ordered_imgs = admin.activeImages;
+            for (i = 0; i < ordered_imgs.length; i++)
+                $("#sortable").append("<li class='ui-state-default'><img class='img-responsive' " + 
+                    "height='100px' width='100px' src='../data/" + path + "/" + ordered_imgs[i].src + "' altsrc='" +
+                    ordered_imgs[i].src + "' alt='" + ordered_imgs[i].alt + "'></li>");
+            //$("#image_list").html("<ul id='sortable'>" + items.join("") + "</ul>");
+            //calcOrder();
+            loadRegistrationsJSON();
+        }
+        function saveJSON() {
+            $.ajax(
+            {
+                type: "POST",
+                url: "saveAdmin.php",
+                data: { json: JSON.stringify(admin) },
+                success: function (data) {
+                    $("#checkmark").show().fadeOut(3000);
+                }
+            }).fail(function () {
+                alert("saveJSON ajax call failed");
+            });
+        }
+        function calcOrder()
+        {
+            return;
+            var str = "";
+            $("li").each(function () {
+                str += $(this).find("img").attr("alt") + "\n";
+            });
+            $("#ta").text(str);
+        }
+        function loadRegistrationsJSON() {
+            $.ajax({
+                url: "../readRegistrations.php",
+                data: { path: admin.active },
+                success: function (data) {
+                    reg = eval("(" + data + ")");
+                    loadRegistrations();
+                }
+            }).fail(function () {
+                alert("loadRegistrationsJSON ajax call failed");
+            });
+        }
+        function loadRegistrations() {
+            var items = [];
+            //alert(JSON.stringify(reg));
+            //alert("1");
+            for (i = 0; i < reg.registered.length; i++) {
+                //alert("2");
+                items.push("<tr>" +
+                        "<td><input id='regName' class='form-control' type='text' regid='" + i + "' value='" + reg.registered[i].name + "'></td>" +
+                        "<td><input id='regEmail' class='form-control' type='text' regid='" + i + "' value='" + reg.registered[i].email + "'></td>" +
+                        "<td><input id='regPhone' class='form-control' type='text' regid='" + i + "' value='" + reg.registered[i].phone + "'></td>" +
+                        "<td><input id='regNotes' class='form-control' type='text' regid='" + i + "' value='" + reg.registered[i].notes + "'></td>" +
+                        "<td style='text-align:center;width:80px;'><button class='btn btn-default' regid='" + i + "' onclick='doSaveReg(" + i + ");'>Save</button>" + "</td>" +
+                        "<td style='width:20px;'><img id='checkMark' regid='" + i + "' src='../images/checkmark.jpg' " + "height='15px' /></td>" +
+                    "</tr>");
+            }
+            //alert("3");
+            $("#registered_list").html("<table class='table table-bordered'>" +
+                "<thead>" +
+                    "<tr>" +
+                        "<th>Name</th>" +
+                        "<th>E-Mail</th>" +
+                        "<th>Phone</th>" +
+                        "<th>Notes</th>" +
+                        "<th style='text-align:center;width:80px;'>" + "<b>Action</b></th>" +
+                        "<th style='width:20px;'></th>" +
+                    "</tr>" +
+                "</thead>" +
+                "<tbody>" +
+                    items.join("") +
+                "</tbody>" +
+                "</table>");
+            for (i = 0; i < reg.registered.length; i++)
+                $("#checkMark[regid='" + i + "']").hide();
+        }
+        function doSaveReg(j) {
+            for (var i = 0; i < reg.registered.length; i++) {
+                reg.registered[i].name = $("#regName[regid='" + i + "']").val();
+                reg.registered[i].email = $("#regEmail[regid='" + i + "']").val();
+                reg.registered[i].phone = $("#regPhone[regid='" + i + "']").val();
+                reg.registered[i].notes = $("#regNotes[regid='" + i + "']").val();
+            }
+            $.ajax(
+            {
+                url: "../saveRegistrations.php",
+                data: { path: admin.active, json: JSON.stringify(reg) },
+                success: function (data) {
+                    $("#checkMark[regid='" + j + "']").show().fadeOut(3000);
+                }
+            }).fail(function () {
+                alert("doSaveReg ajax call failed");
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Available showings:</h4>
+        </div>
+        <div class="panel-body">
+            <div id="folders"></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div id="title">
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Images:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul id='sortable'></ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Registrations:</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div id="registered_list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!--
+    The rivera’s (Eric? and Ella)
+weluvtigers@gmail
+972-399-6799
+Lease expiring in march…reach out to them then
+
+
+
+-->

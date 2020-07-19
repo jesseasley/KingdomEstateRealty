@@ -1,0 +1,941 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta name="msvalidate.01" content="9F38F692B49A4874EC43FAEFDBA15FC5" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Residential, Commercial & Business Brokerage! Serving North Texas for Last Ten Years and we are ready to serve you." />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <title>Kingdom Estate Realty</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async></script>
+    <script type="text/javascript" src="http://malsup.github.com/jquery.cycle.all.js" async></script>
+    <script type="text/javascript" src="js/properties.js" async></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+    <meta name="robots" content="index,follow" />
+    <meta name="keywords" content="website, design, consulting, it, web design, technology, application, websites, applications, designs" />
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            width: 100%;
+            margin: auto;
+        }
+
+
+        .carousel-fade .carousel-inner .item {
+            opacity: 0;
+            transition-property: opacity;
+        }
+
+        .carousel-fade .carousel-inner .active {
+            opacity: 1;
+        }
+
+            .carousel-fade .carousel-inner .active.left,
+            .carousel-fade .carousel-inner .active.right {
+                left: 0;
+                opacity: 0;
+                z-index: 1;
+            }
+
+        .carousel-fade .carousel-inner .next.left,
+        .carousel-fade .carousel-inner .prev.right {
+            opacity: 1;
+        }
+
+        .carousel-fade .carousel-control {
+            z-index: 2;
+        }
+
+        /*
+          WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+          Need to override the 3.3 new styles for modern browsers & apply opacity
+        */
+        @media all and (transform-3d), (-webkit-transform-3d) {
+            .carousel-fade .carousel-inner > .item.next,
+            .carousel-fade .carousel-inner > .item.active.right {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            .carousel-fade .carousel-inner > .item.prev,
+            .carousel-fade .carousel-inner > .item.active.left {
+                opacity: 0;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+                .carousel-fade .carousel-inner > .item.next.left,
+                .carousel-fade .carousel-inner > .item.prev.right,
+                .carousel-fade .carousel-inner > .item.active {
+                    opacity: 1;
+                    -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                }
+        }
+
+
+        #nav ul li {
+            list-style-type: none;
+            text-align: center;
+            float: left;
+            margin: 0px;
+        }
+
+            #nav ul li a {
+                text-decoration: none;
+                color: #000;
+                text-align: center;
+                display: block;
+                padding: 10px;
+                margin: 0px;
+            }
+
+                #nav ul li a:hover {
+                    color: #CD0000;
+                }
+
+                #nav ul li a.active {
+                    color: red;
+                }
+
+        a.visited {
+            color: red;
+        }
+
+        @media screen and (min-width: 318px) {
+            #nav ul li a {
+                font-size: 10px;
+                padding: 6px;
+            }
+        }
+
+        @media screen and (min-width: 350px) {
+            #nav ul li a {
+                font-size: 12px;
+            }
+        }
+    </style>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-106084631-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script type="text/javascript">
+        var d;
+        var s;
+        var panoramicMarkup = '<div id="panoramicSlideshow">' +
+            '<img src="images/1.jpg" width="100%">' +
+            '<img src="images/2.jpg" width="100%">' +
+            '<img src="images/3.jpg" width="100%">' +
+            '<img src="images/4.jpg" width="100%"></div>';
+        var friscoMarkup, mckinneyMarkup;
+
+        $(document).ready(function () {
+            $('#menu > li > ul').hide().click(function (e) { e.stopPropagation(); });
+            $('#menu > li').hover(function () {
+                $(this).find('ul').slideDown();
+            }, function () {
+                $(this).find('ul').slideUp();
+            });
+            readFile("static");
+            readFile("dynamic");
+            if ((location.toString().indexOf("#Home") > 0) || (location.toString().indexOf("#") == -1)) {
+                showHome();
+                loadBottom();
+                $("#homeMenu").removeClass("active");
+                $("#homeMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Listings") > 0)
+                displayListings();
+            if (location.toString().indexOf("#Testimonials") > 0)
+                showPage("testimonials.php", "stub");
+            if (location.toString().indexOf("#Bio") > 0)
+                showPage("bio.php", "stub");
+            if (location.toString().indexOf("#Email") > 0) {
+                showPage("email_html.php", "stub");
+                $("#contactMenu").removeClass("active");
+                $("#contactMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Buying") > 0) {
+                showPage("buying.php", "stub");
+                $("#buyMenu").removeClass("active");
+                $("#buyMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Commercial") > 0) {
+                showPage("commercial.php", "stub");
+                $("#commercialMenu").removeClass("active");
+                $("#commercialMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Listings") > 0) {
+                showPage("listings.php", "");
+                $("#listingMenu").removeClass("active");
+                $("#listingMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Payments") > 0)
+                showPage("payments.php", "");
+            if (location.toString().indexOf("#Investing") > 0) {
+                showPage("investing.php", "stub");
+                $("#investingMenu").removeClass("active");
+                $("#investingMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Renting") > 0) {
+                showPage("renting.php", "stub");
+                $("#rentMenu").removeClass("active");
+                $("#rentMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Selling") > 0) {
+                showPage("selling.php", "stub");
+                $("#sellingMenu").removeClass("active");
+                $("#sellingMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#Mission") > 0) {
+                showPage("mission.php", "stub");
+                $("#missionMenu").removeClass("active");
+                $("#missionMenu").addClass("active");
+            }
+            if (location.toString().indexOf("#ForAgents") > 0) {
+                showPage("agents/agent.php", "stub");
+                $("#agentsMenu").removeClass("active");
+                $("#agentsMenu").addClass("active");
+            }
+            $('a').click(function () {
+                $('a').removeClass("active");
+                $(this).addClass("active");
+                if (this.id == "paymentMenu") {
+                    $(this).removeClass("active");
+                    $("#homeMenu").addClass("active");
+                }
+            });
+        });
+        function sendMail() {
+            if (validateFields()) {
+                $.ajax({
+                    type: "POST",
+                    url: "email.php",
+                    data: "name=" + $("#nameText").val() +
+                        "&email=" + $("#emailText").val() +
+                        "&phone=" + $("#phoneText").val() +
+                        "&subject=" + $("#subjectText").val() +
+                        "&body=" + $("#bodyTextArea").val(),
+                    success: function (data) {
+                        show("thankspage");
+                        if (data == "success")
+                            $("#emailResults").html("Thanks for contacting us.<br /><br />Someone will respond to your request shortly.");
+                        else if (data == "error")
+                            $("#emailResults").html("Something went wrong and we were unable to send your mail.<br /><br />Please try again later.");
+                        else
+                            $("#emailResults").html(data);
+                    }
+                });
+            }
+        }
+        function search(city, minprice, maxprice, bedrooms, baths) {
+            var url = "http://www.immobel.com/kingdomestaterealty/searchResults.do" +
+                "?la=EN&per=kingdomestaterealty&shcu=&mode=std&rpp=15&c_sort=li_sort_priced&c_mls=&c_itype=1&c_stype=&cu=USD&c_rooms=&minsurface=&maxsurface=" +
+                "&c_surface_mu=1&minlsurface=&maxlsurface=&c_lsurface_mu=1&c_yrblt_lo=&c_yrblt_hi=" +
+                "&c_location=" + city +
+                "&minprice=" + minprice +
+                "&maxprice=" + maxprice +
+                "&minbedroom=" + bedrooms +
+                "&minbathroom=" + baths;
+            window.open(url);
+        }
+        function saveFile(type, oData) {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "saveJSON.php",
+                    data: { fileType: type, json: JSON.stringify(oData) },
+                    success: function (data) {
+                        ; // document.write(type + " save: " + data + "<br>");
+                    }
+                });
+        }
+        function loadBottom() {
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "bottom.php",
+                    success: function (data) {
+                        $("#bottomContainer").html(data);
+                        $("#bottomContainer").show();
+                    }
+                });
+        }
+        function readFile(type) {
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "readJSON.php",
+                    async: false,
+                    data: { fileType: type },
+                    success: function (data) {
+                        if (type == "static") {
+                            s = eval("(" + data + ")");
+                            //displayAdviceArticles();
+                            //alert("Specializations: " + s.Specializations.length);
+                        }
+                        else {
+                            d = eval("(" + data + ")");
+                            //displayLogins();
+                            //document.write("Listings: " + d.Listings.length + "<br>");
+                        }
+                    }
+                });
+        }
+        function displayAdviceArticles() {
+            var html = "";
+            html += "<nav><ul id='menu'>";
+            html += "<li><a href='#' onclick='$(\"#content\").html(\"\");'>Home</a></li>";
+            html += "<li><a href='#' onclick='showPage(\"searchProperty.php\", \"stub\");'>Home Search</a></li>";
+            html += "<li><a href='#' onclick='displayListings();'>Listings</a></li>";
+            html += "<li><a href='#' onclick='openLink(\"Articles\");'>Articles</a><ul>";
+            for (var i = 0; i < s.Subject.length; i++) {
+                html += "<li><a href='#' onclick='openLink(\"" + s.Subject[i].Name + "\");'><nobr>" + s.Subject[i].Name + "</nobr></a><ul>";
+                if ((s.Subject[i].Name != "Buyers") && (s.Subject[i].Name != "Buyers2")) {
+                    for (var j = 0; j < s.Subject[i].Articles.length; j++) {
+                        html += "<li><a href='#' onclick='showPage(\"" + s.Subject[i].Articles[j].Location;
+                        html += "\", \"stub\");'><nobr>" + s.Subject[i].Articles[j].Name + "</nobr></a></li>";
+                    }
+                }
+                html += "</ul></li>";
+            }
+            html += "</ul></li>";
+            html += "<li><a href='#' onclick='showPage(\"testimonials.php\",\"stub\");'>Testimonials</a></li>";
+            html += "<li><a href='#' onclick='showPage(\"bio.php\",\"stub\");'>About Us</a></li>";
+            html += "<li><a href='#' onclick='showPage(\"email_html.php\",\"stub\");'>Contact Us</a></li>";
+            html += "</ul></nav>";
+            $("#menu").html(html);
+        }
+        function openLink(articleLocation) {
+            //$("#menu ul ul").slideUp();
+            //$("#home").slideUp();
+            $("#Panoramic").hide(500);
+            if ((articleLocation == "Sellers") || (articleLocation == "Buyers")) {
+                for (var i = 0; i < s.Subject.length; i++) {
+                    if (s.Subject[i].Name == articleLocation) {
+                        var html = "<ul>";
+                        for (var j = 0; j < s.Subject[i].Articles.length; j++) {
+                            html += "<li><a href='#' onclick='showPage(\"" + s.Subject[i].Articles[j].Location + "\", \"\");'>" + s.Subject[i].Articles[j].Name + "</a></li>";
+                        }
+                        html = "<table cellspacing=0 cellpadding=5 border=1 width=100%><tr><td width=300 valign=top>" + html;
+                        html += "</ul></td><td valign=top><div id='articleText'>&nbsp;</div></td></tr></table><table><tr height=\"12px\"><td /></tr></table>";
+                        $("#home").slideUp("slow", function () {
+                            $("#content").slideUp("slow", function () {
+                                $("#content").html(html);
+                                $("#content").slideDown();
+                            });
+                        });
+                    }
+                }
+            }
+        }
+        function showPage(pageName, stub) {
+            if ((pageName.substring(0, 7) == "http://") || (pageName.substring(0, 8) == "https://")) {
+                window.open(pageName);
+                //alert(pageName);
+            }
+            else {
+                $("#home").slideUp("slow", function () {
+                    $("#bottomContainer").hide();
+                    $("#content").slideUp("slow", function () {
+                        if (stub == "stub") {
+                            var html = "<table cellspacing=0 cellpadding=5 border=0><tr>";
+                            html += "<td valign=top><div id='articleText'>&nbsp;</div></td></tr></table>";
+                            $("#content").html(html);
+                        }
+                        //alert("call get: *" + pageName + "*");
+                        $.ajax(
+                            {
+                                type: "GET",
+                                url: pageName,
+                                success: function (data) {
+                                    //alert("success");
+                                    $("#Panoramic").hide(500);
+                                    $("#content").html(data);
+                                    $("#content").slideDown();
+                                    if (pageName == "email_html.php")
+                                        $("#nameText").focus();
+                                },
+                                error: function (j, err) {
+                                    alert(j.status);
+                                }
+                            });
+                    });
+                });
+            }
+        }
+        function displayExpertAdvice() {
+            var html = "<center><table border='1' cellpadding='5' cellspacing='0'>";
+            html += "<thead><th>Expert Advice</th></thead><tbody>";
+            for (var i = 0; i < s.ExpertAdvice.length; i++) {
+                html += "<tr>";
+                html += "<td>" + s.ExpertAdvice[i].advice + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></table></center>";
+            $("#listings").html(html);
+        }
+        function displayAreas() {
+            var html = "<center><table border='1' cellpadding='0' cellspacing='0'>";
+            html += "<thead><th>Areas</th></thead><tbody>";
+            for (var i = 0; i < s.Areas.length; i++) {
+                html += "<tr>";
+                html += "<td>" + s.Areas[i].area + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></table></center>";
+            $("#listings").html(html);
+        }
+        function displaySpecializations() {
+            var html = "<center><table border='1' cellpadding='0' cellspacing='0'>";
+            html += "<thead><th>Specialization</th></thead><tbody>";
+            for (var i = 0; i < s.Specializations.length; i++) {
+                html += "<tr>";
+                html += "<td>" + s.Specializations[i].Specialization + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></table></center>";
+            $("#listings").html(html);
+        }
+        function displayLogins() {
+            var html = "<center><table border='1' cellpadding='0' cellspacing='0' width='800px' >";
+            html += "<thead><th>Username</th><th>Password</th><th>Level</th><th>Calendar</th><th>GUID</th><th>Logged in</th><th>Enabled</th></thead><tbody>";
+            for (var i = 0; i < d.Logins.length; i++) {
+                html += "<tr>";
+                html += "<td>" + d.Logins[i].username + "</td>";
+                html += "<td>" + d.Logins[i].password + "</td>";
+                html += "<td>" + d.Logins[i].level + "</td>";
+                html += "<td>" + d.Logins[i].calendar + "</td>";
+                html += "<td>" + d.Logins[i].guid + "</td>";
+                html += "<td>" + d.Logins[i].loggedin + "</td>";
+                html += "<td>" + d.Logins[i].enabled + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></table></center>";
+            $("#listings").html(html);
+        }
+        function displayListings() {
+            $("#Panoramic").hide(500);
+            var html = "";
+            for (var i = 0; i < d.Listings.length; i++) {
+                if (d.Listings[i].Active == "TRUE") {
+                    html += "<div class='well'>";
+                    html += "<center><image src='" + d.Listings[i].ImageLocation + "'>";
+                    html += "&nbsp;&nbsp;<a href='" + d.Listings[i].MapLink + "' target='_empty'><img border=0 src='images/map.gif'></a>";
+                    html += "<br><nobr>" + d.Listings[i].Address + "</nobr> in <nobr>" + d.Listings[i].City + "</nobr><br>";
+                    html += "</center><br><span class='smallheading'>";
+                    html += d.Listings[i].DescriptionCaption + "</span><br><span>" + d.Listings[i].Description + "</span>";
+                    //html += "<div class='well'>";
+                    //html += "<td align='left' valign='top'><image src='" + d.Listings[i].ImageLocation + "'></td>";
+                    //html += "<td align='center' valign='center' class='text'><nobr>" + d.Listings[i].Address + "</nobr><br><nobr>";
+                    //html += d.Listings[i].City + "</nobr><br>";
+                    //html += "<a href='" + d.Listings[i].MapLink + "' target='_empty'><img border=0 src='images/map.gif'></a></td>";
+                    //html += "<td align='left'><span class='smallheading'>";
+                    //html += d.Listings[i].DescriptionCaption + "</span><br><span class='text'>" + d.Listings[i].Description + "</span></td>";
+                    html += "</div>";
+                }
+            }
+            html += "";
+            $("#home").slideUp("slow", function () {
+                $("#content").slideUp("slow", function () {
+                    $("#content").html(html);
+                    $("#content").slideDown();
+                });
+            });
+        }
+        function submitListingSearch() {
+            var url = "http://www.ntreis.immobel.com/personal/1/searchResults.do?";
+            url += "la=EN&";                      //language
+            url += "per=JessEasley&";             //agent
+            url += "shcu=&";
+            url += "mode=std&";                   //standard mode
+            url += "rpp=15&";
+            url += "c_sort=li_sort_priced&";      //order option
+            url += "c_location=" + $("#selCity").val();    //city, state, country, zip
+            url += "&c_mls=&";                     //mls # - this is an either or with the address search
+            url += "c_itype=1&";                  //search type (1=residential for sale, 2=residential for lease, 3=commercial for sale, 4=commercial for lease, 5=land)
+            url += "c_stype=&";                   //residential type (1=single family home, 2=townhouse, 3=apartment/condo, 4=manufactured/mobile, 5=farm/ranch, 6=lots & land
+            url += "minprice=" + $("#selPriceMin").val();            //minimum price (comm & res)
+            url += "&maxprice=" + $("#selPriceMax").val();            //maximum price (comm & res)
+            url += "&cu=USD&";                     //cost units (US dollars)
+            url += "minbedroom=" + $("#selBeds").val();               // minimum bedrooms
+            url += "&c_rooms=&";                   //total rooms
+            url += "minbathroom=" + $("#selBaths").val();              //minimum baths
+            url += "&minsurface=" + $("#selSqFtMin").val();                //house sqft (comm & res)
+            url += "&maxsurface=" + $("#selSqFtMax").val();                //house sqft (comm & res)
+            url += "&c_surface_mu=1&";             //bldg size type (1=sqft, 2=m2)
+            url += "minlsurface=" + $("#selLotMin").val();               //lot size
+            url += "&maxlsurface=" + $("#selLotMax").val();               //lot size
+            url += "&c_lsurface_mu=3&";            //land size type (1=sqft, 2=m2, 3=acres, 4=hectares)
+            url += "c_yrblt_lo=&";                //year built
+            url += "c_yrblt_hi=&";                //year built
+            url += "c_price_freq=monthly";        //pricing frequency (monthly, annually) (comm only)
+            window.open(url);
+        }
+        function submitEmail() {
+            var valid = true;
+            if ($("#bodyTextArea").val().trim() == "") {
+                valid = false;
+                $("#bodyVal").html("<span style='color:red'>*</span>")
+                $("#bodyTextArea").focus();
+            }
+            else {
+                $("#bodyVal").html("")
+            }
+            if ($("#subjectText").val().trim() == "") {
+                valid = false;
+                $("#subjectVal").html("<span style='color:red'>*</span>")
+                $("#subjectText").focus();
+            }
+            else {
+                $("#subjectVal").html("")
+            }
+            if ($("#emailText").val().trim() == "") {
+                valid = false;
+                $("#emailVal").html("<span style='color:red'>*</span>")
+                $("#emailText").focus();
+            }
+            else {
+                $("#emailVal").html("")
+            }
+            if ($("#phoneText").val().trim() == "") {
+                valid = false;
+                $("#phoneVal").html("<span style='color:red'>*</span>")
+                $("#phoneText").focus();
+            }
+            else {
+                $("#phoneVal").html("")
+            }
+            if ($("#nameText").val().trim() == "") {
+                valid = false;
+                $("#nameVal").html("<span style='color:red'>*</span>")
+                $("#nameText").focus();
+            }
+            else {
+                $("#nameVal").html("")
+            }
+            if (valid == true) {
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "email.php",
+                        data: {
+                            name: $("#nameText").val(),
+                            phone: $("#phoneText").val(),
+                            email: $("#emailText").val(),
+                            subject: $("#subjectText").val(),
+                            body: $("#bodyTextArea").val()
+                        },
+                        success: function (data) {
+                            $("#content").html(data);
+                        }
+                    });
+            }
+        }
+        function startProperty(city) {
+            return;
+            $('#' + city + 'Slideshow').cycle('stop').remove();
+            if (city == "Frisco") {
+                $('#' + city + 'Properties').html(friscoMarkup);
+            }
+            else {
+                $('#' + city + 'Properties').html(mckinneyMarkup);
+            }
+            //            $('#' + city + 'PropertyTable').attr("style", "width:340px;background-image:url(images/innerbodycolor.jpg)")
+            //alert(propertyMarkup);
+            //$('#effect').html(fx);
+            //            $('#' + city + 'Slideshow').attr("style", "width:340px;background-image:url(images/innerbodycolor.jpg)")
+            $('#' + city + 'Slideshow').cycle({
+                fx: "fade",
+                timeout: 5000,
+                delay: -1000,
+                after: function (curr, next, opts) {
+                    //                    $('#' + city + 'PropertyTable').attr("style", "width:340px;background-image:url(images/innerbodycolor.jpg)")
+                    //                    $('#' + city + 'Slideshow').attr("style", "width:340px;background-image:url(images/innerbodycolor.jpg)")
+                    //var msg = 'Slide ' + (opts.currSlide + 1) + ' of ' + opts.slideCount;
+                    //$('#caption').html(msg);
+                }
+            });
+        }
+        function getPropertyMarkup(city) {
+            var html = '<div id="' + city + 'Slideshow" style="border:0px">';
+            var d = eval(propertyData);
+            for (var i = 0; i < d.properties.length; i++)
+                html += '<table><tr><td align="center">' +
+                    '<h3>' + d.properties[i].caption + '</h3><hr></td></tr><tr><td align="center">' +
+                    '<a href="http://maps.google.com/maps?q=' + d.properties[i].address + '" target="_empty">' +
+                    '<img alt="' + d.properties[i].address + '" border="1" src="' + d.properties[i].image +
+                    '" width="100" /></a></td></tr><tr><td align="center">' +
+                    d.properties[i].address + '</td></tr><tr><td><br>' +
+                    d.properties[i].description +
+                    '</td></tr></table>';
+            html += "</div>";
+            $.ajax(
+                {
+                    type: "GET",
+                    url: "active_listings.php",
+                    data: "maxprice=400000&city=" + city,
+                    success: function (data) {
+                        //alert(data);
+                        //if (city == "Frisco") {
+                        //    friscoMarkup = html;
+                        //    friscoMarkup = '<div id="' + city + 'Slideshow" style="border:0px;width:440px;height:290px;">' + data + "</div>";
+                        //}
+                        //else {
+                        //    mckinneyMarkup = html;
+                        //    mckinneyMarkup = '<div id="' + city + 'Slideshow" style="border:0px;width:440px;height:290px;">' + data + "</div>";
+                        //}
+                        $('#' + city + 'Properties').html(data);
+                        $('.carousel').carousel({
+                            cycle: true
+                        });
+                        //startProperty(city);
+                        //$("#content").html(data);
+                    },
+                    error: function (j, err) {
+                        alert(j.status);
+                    }
+
+                });
+        }
+        function showHome() {
+            //alert("showhome");
+            loadBottom();
+            getPropertyMarkup("Frisco");
+            getPropertyMarkup("McKinney");
+            $("#Panoramic").show(500);
+            $("#content").slideUp("slow", function () {
+                $("#home").slideDown();
+            });
+            $("a").removeClass("active");
+            $("#homeMenu").addClass("active");
+        }
+        function logOut() {
+            $('#user').html('');
+        }
+        function makePayment() {
+            $("#paypal-submit-d49f417a-722e-4f16-8a9f-cfe266d1aeea").submit();
+            showHome();
+        }
+    </script>
+</head>
+
+<body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" style="background-image:url(images/bodycolor.jpg)">
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="container">
+        <div id="HeaderBar" class="row" style="background-image:url(images/CaptionBarGradient.jpg)">
+            <div id="LargeScreenLogo" class="col-lg-3 col-md-4 col-sm-5 hidden-xs">
+                <img src="images/newlogo.png" style="margin-left:0px;margin-top:10px;height:100px;">
+            </div>
+            <div id="MobileLogo" class="hidden-lg hidden-md hidden-sm col-xs-12">
+                <center><img src="images/newlogo.png" style="height:80px"></center>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-7 hidden-xs slogan">
+                <div class="newtitle scroll-left"><p>Residential, Commercial & Business Brokerage!</p></div>
+                "Serving North Texas for Last Ten Years and we are
+                ready to serve you too, call us @ 972-742-9575 today,
+                we can help you!!"
+            </div>
+            <div id="RightSide" class="col-lg-3 hidden-md hidden-xs hidden-sm" style="text-align:right;color:white;">
+                <span class="hidden-xs">
+                    <center>
+                        <br />
+                        <a href="#Email" onclick='showPage("email_html.php","stub");' style="color:white;">Send us an e-mail</a>
+                        <br />
+                        Main: 972-742-9575
+                        <br />
+                        <br />
+                        <br />
+                        <span style="vertical-align:middle">
+                            <div class="fb-like" data-href="https://www.facebook.com/kingdomestaterealty/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>                            <a href="https://www.facebook.com/kingdomestaterealty" target="_blank">
+                                <img src="images/facebook_logo.gif" width="30" title="Facebook" />
+                            </a>
+                            <a href="http://twitter.com" target="_blank">
+                                <img src="images/twitter_logo.gif" width="30" title="Twitter" />
+                            </a>
+                            <a class="hidden-md" href="http://blogger.com" target="_blank">
+                                <img src="images/blog_logo.gif" width="30" title="Blog" />
+                            </a>
+                        </span>
+                    </center>
+                </span>
+            </div>
+        </div>
+        <div class="row" style="height:5px;background-color:white"></div>
+        <div id="Search" class="row" style="background-color:white">
+            <center>
+                <div id="quickSearch" class="col-lg-10 col-xs-12">
+                    <!--sm/xs menu-->
+                    <table id="xs-sm-menu" class="hidden-md hidden-lg">
+                        <tr>
+                            <td width="80%">
+                                City:
+                            </td>
+                            <td>Beds:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="smcity" placeholder="Search city" class="form-control" />
+                            </td>
+                            <td>
+                                <select id="smbedrooms" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected=selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="btnSearch" onclick="search(
+                                        $('#smcity').val(), '', '',
+                                        $('#smbedrooms').val(), '');">
+                                    Search
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="md-lg-menu" class="hidden-xs hidden-sm">
+                        <tr>
+                        <tr>
+                            <td width="450px;">City:</td>
+                            <td colspan="3">Price range:</td>
+                            <td width="70px;">Beds:</td>
+                            <td width="70px;">Baths:</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" id="lgcity" placeholder="Search city" class="form-control" />
+                            </td>
+                            <td width="100px;">
+                                <input type="text" id="lgminPrice" placeholder="At least" class="form-control" />
+                            </td>
+                            <td>
+                                to
+                            </td>
+                            <td width="100px;">
+                                <input type="text" id="lgmaxPrice" placeholder="At most" class="form-control" />
+                            </td>
+                            <td>
+                                <select id="lgbedrooms" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected=selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="lgbaths" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2" selected=selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="btnSearch" onclick="search(
+                                        $('#lgcity').val(),
+                                        $('#lgminPrice').val(),
+                                        $('#lgmaxPrice').val(),
+                                        $('#lgbedrooms').val(),
+                                        $('#lgbaths').val());">
+                                    Search
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-1 hidden-xs">
+                    <a href="#Home" onclick="logOut();" title="Logout">
+                        <div id="user"></div>
+                    </a>
+                </div>
+                <span class="hidden-xs hidden-sm hidden-md">
+                    <br />
+                </span>
+            </center>
+        </div>
+        <div class="row" style="height:5px;background-color:white"></div>
+        <div id="Menus" class="row" style="background-image:url(images/innerbodycolor.jpg)">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:10px;background-image:url(images/innerbodycolor.jpg)"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div id="nav" class="container-fluid">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a id="homeMenu" href="#Home" onclick='showHome();'>Home</a>
+                            </li>
+                            <li>
+                                <a id="buyMenu" href="#Buying" onclick='showPage("buying.php", "");'>Buy</a>
+                            </li>
+                            <li>
+                                <a id="rentMenu" href="#Renting" onclick='showPage("renting.php", "");'>Rent</a>
+                            </li>
+                            <li>
+                                <a id="listingMenu" href="#Listings" onclick='showPage("listings.php", "");'>Listings</a>
+                            </li>
+                            <li class="hidden-xs">
+                                <a id="sellingMenu" href="#Selling" onclick='showPage("selling.php", "");'>Sell</a>
+                            </li>
+                            <li class="hidden-xs">
+                                <a id="investingMenu" href="#Investing" onclick='showPage("investing.php", "");'>Invest</a>
+                            </li>
+                            <li class="hidden-xs hidden-sm">
+                                <a href="#">Stories</a>
+                                <ul>
+                                    <li>
+                                        <a href="#Bio" onclick='showPage("bio.php", "stub");'>Our Bio</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Testimonials" onclick='showPage("testimonials.php","stub");'>Testimonials</a>
+                                    </li>
+                                    <li>
+                                        <a id="missionMenu" href="#Mission" onclick='showPage("mission.php","stub");'>Vision/Mission</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="hidden-xs hidden-sm">
+                                <a id="commercialMenu" href="#Commercial" onclick='showPage("commercial.php", "");'>Commercial</a>
+                            </li>
+                            <li>
+                                <a id="contactMenu" href="#Email" onclick='showPage("email_html.php","stub");'>Contact Us</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a id="paymentMenu" href="#Home" onclick='makePayment();'>Payments</a>
+                            </li>
+                            <li>
+                                <a class="hidden-xs" id="agentsMenu" href="#ForAgents#Login" onclick='showPage("agents/agent.php", "");'>For Agents</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id="Panoramic" class="row" style="background-color:lightblue">
+            <div id="myCarousel" class="carousel slide carousel-fade col-lg-12 col-md-12 col-sm-12 col-xs-12" data-ride="carousel" data-interval="8000">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                    <li data-target="#myCarousel" data-slide-to="4"></li>
+                    <li data-target="#myCarousel" data-slide-to="5"></li>
+                    <li data-target="#myCarousel" data-slide-to="6"></li>
+                    <li data-target="#myCarousel" data-slide-to="7"></li>
+                    <li data-target="#myCarousel" data-slide-to="8"></li>
+                    <li data-target="#myCarousel" data-slide-to="9"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active"><img src="images/1.jpg" /></div>
+                    <div class="item"><img src="images/2.jpg" /></div>
+                    <div class="item"><img src="images/3.jpg" /></div>
+                    <div class="item"><img src="images/4.jpg" /></div>
+                    <div class="item"><img src="images/5.jpg" /></div>
+                    <div class="item"><img src="images/6.jpg" /></div>
+                    <div class="item"><img src="images/7.jpg" /></div>
+                    <div class="item"><img src="images/8.jpg" /></div>
+                    <div class="item"><img src="images/9.jpg" /></div>
+                    <div class="item"><img src="images/10.jpg" /></div>
+                </div>
+
+                <!-- Left and right controls-->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div id="MainBody" class="row" style="background-image:url(images/innerbodycolor.jpg);overflow:auto;">
+            <div class="col-lg-12">
+                <div id="listings"></div>
+                <div id="logins"></div>
+                <div id="content" style="text-align:left"></div>
+                <div id="home" class=" hidden-xs">
+                    <div class="row">
+                        <div class="col-lg-5 container">
+                            <center>
+                                <br />
+                                <div id="FriscoProperties">Loading Frisco properties...</div>
+                            </center>
+                            <br />
+                        </div>
+                        <div class="col-lg-5">
+                            <center>
+                                <br />
+                                <div id="McKinneyProperties">Loading McKinney properties...</div>
+                            </center>
+                            <br />
+                        </div>
+                        <div class="col-lg-2">
+                            <script type="text/javascript" src="http://www.mlcalc.com/widget-narrow.js?mlcalc_loan_amount=300,000">
+                            </script>
+                            <!--
+                                </p>
+                                <linked_in>
+                                    <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script>
+                                    <script type="in/share" data-counter="right" data-url="http://www.easley-realty.com">
+                                    </script>
+                                </linked_in>
+                            -->
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div id="bottomContainer" class="row" style="background-image:url(images/BackgroundBottom.jpg);">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+            </div>
+        </div>
+    </div>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="POST" id="paypal-submit-d49f417a-722e-4f16-8a9f-cfe266d1aeea" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="amount" value="35">
+        <input type="hidden" name="bn" value="vistaprint_WPS_Cart">
+        <input type="hidden" name="business" value="chrisho21@sbcglobal.net">
+        <input type="hidden" name="item_name" value="Application Fee">
+        <input type="hidden" name="item_number" value="">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="charset" value="UTF-8">
+        <input type="hidden" name="alt_site_id" value="P61L2-J1A85-1P3">
+    </form>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/marquee.css" />
+</body>
+</html>
+

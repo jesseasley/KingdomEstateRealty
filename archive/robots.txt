@@ -1,0 +1,15 @@
+User-agent: *
+Sitemap: http://easley-realty.com/sitemap.xml
+Allow: default.asp
+Disallow: _private/
+Disallow: _vti_cnf/
+Disallow: _vti_pvt/
+Disallow: advice/
+Disallow: calendar/
+Disallow: css/
+Disallow: images/
+Disallow: includes/
+Disallow: mail_items/
+Disallow: referers/
+Disallow: tools/
+Disallow: googlec773f627528224a8.html

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript">
+        function search() {
+            var url = "http://www.ntreis.immobel.com/personal/1/searchResults.do" +
+                  "?la=EN&per=JessEasley&shcu=&mode=std&rpp=15&c_sort=li_sort_priced&c_mls=&c_itype=1&c_stype=&cu=USD&c_rooms=&minsurface=&maxsurface=" +
+                  "&c_surface_mu=1&minlsurface=&maxlsurface=&c_lsurface_mu=1&c_yrblt_lo=&c_yrblt_hi=" +
+                  "&c_location=" + $("#city").val() +
+                  "&minprice=" + $("#minPrice").val() +
+                  "&maxprice=" + $("#maxPrice").val() +
+                  "&minbedroom=" + $("#bedrooms").val() +
+                  "&minbathroom=" + $("#baths").val();
+            window.open(url);
+        }
+    </script>
+</head>
+<body>
+        <div id="quickSearch">
+            City: <input type="text" id="city" placeholder="Flower Mound, TX"/>&nbsp;&nbsp;&nbsp;
+            Price range: <input type="text" id="minPrice" placeholder="250,000"/> to <input type="text" id="maxPrice" placeholder="400,000"/>&nbsp;&nbsp;&nbsp;
+            Bedrooms: 
+            <select id="bedrooms">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            Baths: 
+            <select id="baths">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <button id="btnSearch" onclick="search();">Search</button>
+        </div>
+</body>
+</html>

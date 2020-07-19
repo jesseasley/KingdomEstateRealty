@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Waterford Park Website Administration</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="staging/js/tinymce/tinymce.min.js"></script>
+    </head>
+    <script type="text/javascript">
+        var cookieData;
+        var localPage = "";
+        $(document).ready(function () {
+            tinyMCE.init({
+                //version 4.0.5
+                selector: "textarea",
+                theme: "modern",
+                plugins: [
+                                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                                    "searchreplace wordcount visualblocks visualchars code fullscreen",
+                                    "insertdatetime media nonbreaking save table contextmenu directionality",
+                                    "emoticons template paste textcolor "
+                                ],
+                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                toolbar2: "print preview media | forecolor backcolor emoticons",
+                image_advtab: true,
+                templates: [
+                                    { title: 'Test template 1', content: 'Test 1' },
+                                    { title: 'Test template 2', content: 'Test 2' }
+                                ]
+            });
+            $("#btnSave").attr("disabled", "disabled");
+            $("#btnCancel").attr("disabled", "disabled");
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "../pages/cookie.php",
+                    success: function (data) {
+                        cookieData = eval(data);
+                        if ((cookieData.nameText == "") || (cookieData.addressText == "") || (cookieData.emailText == "")) {
+                            data = "A resident name, address and email are required to propose new content.<br>";
+                            data += "Please update the missing information before proceeding.<br>";
+                            data += "Click <a href='../index.html#Profile');\">here</a> to go to the contact page.<br><br>";
+                            $("#authentification").html(data);
+                        }
+                        else {
+                            $("#userName").html(cookieData.nameText);
+                            $.ajax(
+                            {
+                                type: "POST",
+                                url: "pages.php",
+                                success: function (data) {
+                                    $("#pages").html(data);
+                                }
+                            });
+                        }
+                    }
+                });
+        });
+        function pageChange(page) {
+            //$("#content").slideUp(500, function () {
+            $.ajax(
+                    {
+                        type: "POST",
+                        url: "files.php",
+                        data: { "action": "read", "filename": page },
+                        success: function (data) {
+                            tinymce.activeEditor.setContent(data, { format: 'raw' });
+                            $("#btnSave").removeAttr("disabled");
+                            $("#btnCancel").removeAttr("disabled");
+                            localPage = page;
+                        }
+                    });
+        }
+        function doSave() {
+            $("#btnSave").attr("disabled", "disabled");
+            $("#btnCancel").attr("disabled", "disabled");
+            var html = tinymce.activeEditor.getContent();
+            $.ajax(
+                    {
+                        type: "POST",
+                        url: "files.php",
+                        data: {
+                            "action": "write",
+                            "filename": localPage,
+                            "content": html,
+                            "nameText": cookieData.nameText,
+                            "addressText": cookieData.addressText,
+                            "emailText": cookieData.emailText,
+                            "homePhoneText": cookieData.homePhoneText,
+                            "workPhoneText": cookieData.workPhoneText,
+                            "cellPhoneText": cookieData.cellPhoneText,
+                            "preferredphoneSelect": cookieData.preferredphoneSelect
+                        },
+                        success: function (data) {
+                            tinymce.activeEditor.setContent(data, { format: 'raw' });
+                            if (data != "") {
+                                $("#btnSave").removeAttr("disabled");
+                                $("#btnCancel").removeAttr("disabled");
+                            }
+                        }
+                    });
+                //.done(function () { alert("success"); })
+                //.fail(function () { alert("fail"); })
+                //.always(function () { alert("complete"); }
+            //);
+                }
+                function doCancel() {
+                    $("#btnSave").attr("disabled", "disabled");
+                    $("#btnCancel").attr("disabled", "disabled");
+                    tinymce.activeEditor.setContent("", { format: 'raw' });
+                }
+    </script>
+    <body>
+    <div id="authentification">
+        <table width="100%">
+            <tr>
+                <td width="300px" valign="top">
+                    Logged in as: <span id="userName"></span><br /><br />
+                    Changes will be saved to a staging location for review.  Once the changes are approved, they'll be posted to the site.<br /><br />
+                    <a href="staging/index.html" target="_blank">Click here to see your changes in Staging</a><br /><br />
+                    <center><b><big>Files</big></b></center>
+                    <div id="pages" style="border:1px solid black"></div>
+                </td>
+                <td width="7px"></td>
+                <td>
+                    <div id="content">
+                        <textarea rows="30" cols="40" id="txtPageContent"></textarea><br />
+                        <input type="button" id="btnSave" value="Save" onclick="doSave();" />
+                        <input type="button" id="btnCancel" value="Cancel" onclick="doCancel();" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>

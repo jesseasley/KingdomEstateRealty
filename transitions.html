@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+	<title>Easley Realty</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="http://malsup.github.com/jquery.cycle.all.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<meta name="robots" content="index,follow" />
+	<meta name="keywords" content="website, design, consulting, it, web design, technology, application, websites, applications, designs" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#choices li').click(function () {
+                fx = $.trim($(this).text());
+                start();
+            });
+
+            var markup = '<div id="slideshow"><img src="images/1.jpg"><img src="images/2.jpg"><img src="images/3.jpg"><img src="images/4.jpg"></div>';
+
+            function start() {
+                $('#slideshow').cycle('stop').remove();
+                $('#show').append(markup);
+                $('#effect').html(fx);
+                $('#slideshow').cycle({
+                    fx: fx,
+                    timeout: 2000,
+                    delay: -1000,
+                    after: function (curr, next, opts) {
+                        var msg = 'Slide ' + (opts.currSlide + 1) + ' of ' + opts.slideCount;
+                        $('#caption').html(msg);
+                    }
+                });
+            }
+            var fx = "turnDown";
+            start();
+        });
+
+        function sendMail() {
+            if (validateFields()){
+                $.ajax({
+                    type: "POST",
+                    url: "email.php",
+                    data: "name=" + $("#nameText").val() +
+                            "&email=" + $("#emailText").val() +
+                            "&phone=" + $("#phoneText").val() +
+                            "&subject=" + $("#subjectText").val() +
+                            "&body=" + $("#bodyTextArea").val(),
+                    success: function (data) {
+                        show("thankspage");
+                        if (data == "success")
+                            $("#emailResults").html("Thanks for contacting us.<br /><br />Someone will respond to your request shortly.");
+                        else if (data == "error")
+                            $("#emailResults").html("Something went wrong and we were unable to send your mail.<br /><br />Please try again later.");
+                        else
+                            $("#emailResults").html(data);
+                    }
+                });
+            }            
+        }
+    </script>
+</head>
+
+<body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+<center><div id="show"></div></center>
+<div id="caption"></div>
+<h1 id="effect">Click an effect name at the left</h1>
+<div id="main">
+	<table><tr><td>
+		<ul id="choices">
+		    <li>blindX</li><li>blindY</li><li>blindZ</li><li>cover</li><li>curtainX</li><li>curtainY</li><li>fade</li><li>fadeZoom</li><li>growX</li>
+		    <li>growY</li><li>none</li><li>scrollUp</li><li>scrollDown</li><li>scrollLeft</li><li>scrollRight</li><li>scrollHorz</li><li>scrollVert</li>
+		    <li>shuffle</li><li>slideX</li><li>slideY</li><li>toss</li><li>turnUp</li><li>turnDown</li><li>turnLeft</li><li>turnRight</li>
+		    <li>uncover</li><li>wipe</li><li>zoom</li>
+		</ul>
+	</td></tr></table>
+</div>
+</body>
+
+</html>
+

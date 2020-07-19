@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Kingdom Estates Realty Agent Manager</title>
+	<style type="text/css" title="currentStyle">
+		@import "css/demo_page.css"; 
+		@import "css/demo_table.css";
+	</style>
+	<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<!--http://www.appelsiini.net/projects/jeditable-->
+	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jquery.jeditable.js"></script>
+	<script type="text/javascript" language="javascript" src="js/fnGetColumnData.js"></script>
+    <script type="text/javascript">
+        var markers = [];
+        function userLogin() {
+            $.ajax(
+            {
+                type: "POST",
+                url: "login.php",
+                data: { userName: $("#userName").val(), password: $("#password").val() },
+                success: function (data) {
+                    if (data.trim() == "success") {
+                        $("#login").hide();
+                        $("#agents_tbl").show();
+                        readFile();
+                    }
+                    else {
+                        $("#passwordFail").html(data);
+                        $("#passwordFail").show("fast", function () {
+                            $("#userName").focus();
+                            $("#passwordFail").fadeOut(4000);
+                        });
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+            $("#login").show("fast", function () {
+                $.ajax({
+                    type: "POST",
+                    url: "getCookie.php",
+                    success: function (data) {
+                        var login = eval(data);
+                        $("#userName").val(login.userName).keyup(function (e) {
+                            if (e.keyCode == 13) {
+                                userLogin();
+                            }
+                        });
+                        $("#password").val(login.password).keyup(function (e) {
+                            if (e.keyCode == 13) {
+                                userLogin();
+                            }
+                        });
+                        if (data.length > 40)
+                            userLogin();
+                        else
+                            $("#userName").focus();
+                    }
+                });
+            });
+            $("#agents_tbl").hide();
+        });
+        function buildTable() {
+            var html = "<table id='agents' class='display' border='1' cellpadding='0', cellspacing='0'><thead><tr><th><b>Name</th>";
+            html += "<th><b>Address</th><th><b>Email</th><th><b>Work</th><th><b>Home</th><th><b>Cell</th><th><b>Preference</th><th>";
+            html += "<b>Password</th><th><b>Enabled</th></tr></thead><tbody>";
+            for (var i = 0; i < agents.agents.length; i++) {
+                html += "<tr>";
+                html += "<td width='250px' class='text' id='name_" + i.toString() + "'>" + agents.agents[i].name + "</td>";
+                html += "<td width='200px' class='text' id='address_" + i.toString() + "'>" + agents.agents[i].address + "</td>";
+                html += "<td class='text' id='email_" + i.toString() + "'>" + agents.agents[i].email + "</td>";
+                html += "<td width='120px' class='text' id='work_" + i.toString() + "'>" + agents.agents[i].work + "</td>";
+                html += "<td width='120px' class='text' id='home_" + i.toString() + "'>" + agents.agents[i].home + "</td>";
+                html += "<td width='120px' class='text' id='cell_" + i.toString() + "'>" + agents.agents[i].cell + "</td>";
+                html += "<td width='100px' class='select' id='pref_" + i.toString() + "'>" + agents.agents[i].pref + "</td>";
+                html += "<td width='100px' class='text' id='password_" + i.toString() + "'>" + agents.agents[i].password + "</td>";
+                html += "<td width='50px' class='enabled' id='title_" + i.toString() + "'>" + agents.agents[i].enabled + "</td>";
+                html += "</tr>";
+            }
+            html += "</tbody></html";
+            $("#agents_tbl").html(html);
+        }
+        function saveFile() {
+            $.ajax(
+            {
+                type: "POST",
+                url: "saveJSON.php",
+                data: { json: JSON.stringify(agents) }//,
+                //success: function (data) {
+                //    $("#content").html(data);
+                //}
+            });
+        }
+        function changePreferred(value, setting, obj) {
+            var i = obj.id.indexOf("_") + 1;
+            var id = obj.id.substring(i, 10);
+            agents.agents[id].pref = value;
+            saveFile();
+            return value;
+        }
+        function changeEnabled(value, setting, obj) {
+            var i = obj.id.indexOf("_") + 1;
+            var id = obj.id.substring(i, 10);
+            agents.agents[id].enabled = value;
+            saveFile();
+            return value;
+        }
+        function changeText(value, setting, obj) {
+            var i = obj.id.indexOf("_") + 1;
+            var id = obj.id.substring(i, 10);
+            var attr = obj.id.substring(0, i - 1);
+            if (attr == "name")
+                agents.agents[id].name = value;
+            if (attr == "address")
+                agents.agents[id].address = value;
+            if (attr == "email")
+                agents.agents[id].email = value;
+            if (attr == "work")
+                agents.agents[id].work = value;
+            if (attr == "home")
+                agents.agents[id].home = value;
+            if (attr == "cell")
+                agents.agents[id].cell = value;
+            if (attr == "password")
+                agents.agents[id].password = value;
+            saveFile();
+            return value;
+        }
+        function readFile() {
+            $.ajax(
+            {
+                type: "POST",
+                url: "readJSON.php",
+                success: function (data) {
+                    agents = eval("(" + data + ")");
+                    //define my search term
+                    //var searchTerm = "2532 Russwood";
+                    //alert(search(searchTerm));
+
+                    buildTable();
+                    var oTable = $("#agents").dataTable({
+                        "iDisplayLength": 10,
+                        "aLengthMenu": [[10, 25, 50, 133], [10, 25, 50, 133]],
+                        "fnDrawCallback": function () {
+                            //drawMap();
+                        }
+                    });
+                    /* Apply the jEditable handlers to the table. See http://www.appelsiini.net/projects/jeditable */
+                    oTable.$('.text').editable(function (value, settings) {
+                        return changeText(value, settings, this);
+                    }, {
+                        tooltip: "Click to edit...",
+                        submit: "Save",
+                        placeholder: "",
+                        "callback": function (sValue, y) {
+                            var aPos = oTable.fnGetPosition(this);
+                            oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                        },
+                        "submitdata": function (value, settings) {
+                            return {
+                                "row_id": this.parentNode.getAttribute('id'),
+                                "column": oTable.fnGetPosition(this)[2]
+                            };
+                        },
+                        "height": "14px",
+                        "width": "100%"
+                    });
+                    oTable.$('.select').editable(function (value, settings) {
+                        return changePreferred(value, settings, this);
+                    }, {
+                        data: "{'': '-Select-','Home':'Home','Cell':'Cell','Work':'Work' }",
+                        placeholder: "",
+                        type: "select",
+                        submit: "Save",
+                        tooltip: "Click to edit..."
+                    });
+                    oTable.$('.enabled').editable(function (value, settings) {
+                        return changeEnabled(value, settings, this);
+                    }, {
+                        data: "{'': '-Select-','Yes':'Yes','No':'No'}",
+                        placeholder: "",
+                        type: "select",
+                        submit: "Save",
+                        tooltip: "Click to edit..."
+                    });
+                }
+            });
+        }
+        function search(searchAgents) {
+            var streets = ["russwood","waterford","clear ridge","windridge","valleywood","gateridge","crestside","garwood","eastglen"];
+            var formalStreets = ["Russwood Drive", "Waterford Drive", "Clear Ridge Lane", "Windridge Drive", "Valleywood Drive",
+                                 "Gateridge Drive","Crestside Drive","Garwood Drive","Eastglen Drive"];
+            //go through the whole list
+            var i = 0;
+            var fullAddress = "";
+            for (var j = 0; j < streets.length; j++) {
+                if (searchAgents.toLowerCase().indexOf(streets[j]) > 0) {
+                    var streetNameLoc = searchAgents.toLowerCase().indexOf(streets[j])
+                    fullAddress = searchAgents.substring(0, streetNameLoc - 1).trim() + " " + streets[j];
+                    break;
+                }
+            }
+            for (i = 0; i < agents.agents.length; i++) {
+                if (agents.agents[i].address.toLowerCase().substring(0, fullAddress.length) == fullAddress) {
+                    break;
+                }
+            }
+            return i;
+        }
+    </script>
+</head>
+<body>
+<!--<div id="a"><table id="b"><tr><td></td></tr></table></div>-->
+    <div id="agents_tbl"><table id="agents"></table></div>
+
+<br /><br />
+<p>
+    <div id="login">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" id="userName" value="" /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" id="password" value="" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><input type="button" value="Login" onclick="userLogin()" /></td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td colspan="2" style="color:Red"><div id="passwordFail"></div></td></tr>
+        </table>
+    </div>
+</p>
+</body>
+</html>

@@ -1,0 +1,277 @@
+body
+{
+	font-family: Verdana; 
+    color: #000000;
+    background-color: #C8CFE1;
+    font-weight: bold;
+    font-size: 12px;
+}
+.slogan {
+    margin-top: 10px;
+    color: white;
+    font-size: 14px;
+}
+.quotes{
+    font-size:16px;
+}
+.checkmarks {
+    color: blue;
+    font-size: 14px;
+}
+.mission{
+    font-size:14px;
+}
+.newtitle {
+    margin-top: -15px;
+    color: yellow;
+    font-size: 14px;
+    text-align:center;
+}
+.text     
+{ 
+	color: #493306;
+	font-size: 9pt; 
+	vertical-align:top 
+}
+.text-centered
+{ 
+	color: #493306;
+	font-size: 9pt; 
+}
+.smallheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    COLOR: #493306;
+    text-align:center
+}
+.sectionheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #493306;
+    text-align:center;
+}
+.pageheading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 20px;
+    COLOR: #493306;
+    text-align:center;
+}
+.darktext
+{ 
+	color: #000000; 
+	font-weight:bold 
+}
+.text:visited{color: #ffffff;}
+a:active     
+{ 
+	color: #493306;
+    TEXT-DECORATION: none; 
+}
+a:hover      
+{ 
+	color: #493306
+}
+a:link       
+{ 
+    TEXT-DECORATION: none; 
+	color: #493306;
+}
+a:visited    
+{ 
+	color: #493306;
+}
+ul li a:hover      
+{ 
+	color: #ffffff
+}
+.maincontent
+{
+    height:470px;
+    width:700px;
+    background-color:#ffffff;
+    padding:10px 10px 10px 10px;
+    text-align:left;
+	color: #000000; 
+	font-weight:bold;
+}
+.maincontentmobile
+{
+    width: 90%;
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+    color: #000000;
+    font-weight: bold;
+    font-size: 12px;
+}
+.mobilebutton
+{
+    height: 30px;
+    font-size:16px;
+    font-weight:bold;
+}
+.hidden
+{
+    visibility:hidden; 
+    height:0px;
+    padding:0px 0px 0px 0px;
+}
+.show
+{
+    visibility:visible;
+}
+.scroll
+{
+    overflow:auto;
+}
+.noscroll
+{
+    overflow:hidden;
+}
+#bedrooms { width:40px; }
+#baths { width:40px;  }
+#minPrice { width:80px; }
+#maxPrice { width:80px; }
+#propertySlideshow
+{
+    position:relative;
+    background-color:lightblue;
+}
+#propertyShow
+{
+    position:relative;
+    border: thin solid #000000; 
+    width: 450px; 
+    height: 300px; 
+    overflow-x: hidden; 
+    overflow-y: hidden;
+    background-color: lightblue;
+}
+#panoramicSlideshow
+{
+    position:relative;
+}
+nav {
+	margin: 0px auto; padding: 0px; text-align: center; color: rgb(255, 255, 255); clear: both;
+}
+nav .wrap {
+	background: url("images/navbar.gif") no-repeat; margin: 0px auto; width: 940px; height: 25px; text-align: center; font-weight: bold;
+}
+nav li {
+	list-style: none; margin: 0px; padding: 0px; text-align: center; text-transform: uppercase; float: left;
+}
+nav li a {
+	margin: 0px 0px 7px; padding: 3px 15px 0px; color: rgb(255, 255, 255); text-transform: uppercase; 
+    font-size: 12px; text-decoration: none; display: block; position: relative;
+}
+nav li a:hover {
+	color: rgb(255, 255, 255);
+}
+nav li a:active {
+	color: rgb(255, 255, 255);
+}
+nav li a.sf-with-ul {
+	padding-right: 20px;
+}
+nav li a .sf-sub-indicator {
+	background: url("images/arrow-down.png"); top: 16px; width: 10px; height: 10px; right: 5px; text-indent: -9999px; overflow: hidden; display: block; position: absolute;
+}
+nav li a:hover .sf-sub-indicator {
+	background: url("images/arrow-down-hover.png");
+}
+nav li li a {
+	background: rgb(98, 123, 127); margin: 0px; padding: 5px 10px; width: 167px; color: rgb(255, 255, 255); text-transform: uppercase; font-family: Arial, Tahoma, Verdana; font-size: 11px; border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; position: relative;
+}
+nav li li a:link {
+	background: rgb(98, 123, 127); margin: 0px; padding: 5px 10px; width: 167px; color: rgb(255, 255, 255); text-transform: uppercase; font-family: Arial, Tahoma, Verdana; font-size: 11px; border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; position: relative;
+}
+nav li li a:visited {
+	background: rgb(98, 123, 127); margin: 0px; padding: 5px 10px; width: 167px; color: rgb(255, 255, 255); text-transform: uppercase; font-family: Arial, Tahoma, Verdana; font-size: 11px; border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; position: relative;
+}
+nav li li a:hover {
+	background: rgb(4, 45, 59); color: rgb(255, 255, 255);
+}
+nav li li a:active {
+	background: rgb(4, 45, 59); color: rgb(255, 255, 255);
+}
+nav li li a .sf-sub-indicator {
+	background: url("images/arrow-right.png"); top: 10px;
+}
+nav li li a:hover .sf-sub-indicator {
+	background: url("images/arrow-right.png"); top: 10px;
+}
+nav li ul {
+	margin: 0px; padding: 0px; left: -999em; width: 170px; height: auto; position: absolute; z-index: 9999;
+}
+nav li ul a {
+	width: 150px;
+}
+nav li ul a:hover {
+	
+}
+nav li ul a:active {
+	
+}
+nav li ul ul {
+	margin: -31px 0px 0px 169px;
+}
+nav li:hover ul ul {
+	left: -999em;
+}
+nav li:hover ul ul ul {
+	left: -999em;
+}
+nav li.sfHover ul ul {
+	left: -999em;
+}
+nav li.sfHover ul ul ul {
+	left: -999em;
+}
+nav li:hover ul {
+	left: auto;
+}
+nav li li:hover ul {
+	left: auto;
+}
+nav li li li:hover ul {
+	left: auto;
+}
+nav li.sfHover ul {
+	left: auto;
+}
+nav li li.sfHover ul {
+	left: auto;
+}
+nav li li li.sfHover ul {
+	left: auto;
+}
+nav li:hover {
+	position: static;
+}
+nav li.sfHover {
+	position: static;
+}
+nav li.right {
+	margin: 0px; padding: 10px 25px 10px 0px; float: right;
+}
+nav li.right a {
+	margin: 0px; padding: 0px; border: currentColor; color: rgb(255, 255, 255); text-decoration: none; display: inline;
+}
+nav li.right a:hover {
+	color: rgb(255, 255, 255); text-decoration: underline;
+}
+nav li.date {
+	
+}
+nav li.rss a {
+	background: url("images/rss.png") no-repeat left; margin: 0px 0px 0px 10px; padding: 3px 0px 3px 18px;
+}
+nav li.search {
+	padding: 0px 10px;
+}
+nav li.twitter a {
+	background: url("images/twitter-nav.png") no-repeat left; padding: 3px 0px 1px 20px;
+}

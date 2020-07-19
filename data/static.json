@@ -1,0 +1,44 @@
+{"Subject":[
+{"Name":"Sellers","Location":"","Articles":[
+]},
+{"Name":"Buyers","Location":"","Articles":[
+]},
+{"Name":"Miscellaneous Topics","Location":"","Articles":[
+	{"Name":"Understanding Agency","Location":"advice/UnderstandingAgency.php"},
+	{"Name":"Experience Matters","Location":"advice/ExperienceMatters.php"},
+	{"Name":"Where America Lives","Location":"advice/WhereAmericaLives.php"},
+	{"Name":"Big Payoff","Location":"advice/BigPayoff.php"},
+	{"Name":"Are You Ready To Be A Landlord","Location":"advice/AreYouReadyToBeALandlord.php"},
+	{"Name":"Buy Real Estate With Your IRA","Location":"advice/BuyRealEstateWithYourIRA.php"},
+	{"Name":"Tips for Packing Like a Pro","Location":"advice/TipsForPackingLikeAPro.php"},
+	{"Name":"Web Site Resources for Consumers","Location":"advice/WebSiteResourcesForConsumers.php"},
+	{"Name":"Spring - Call to Action","Location":"advice/SpringCallToAction.php"}
+]},
+{"Name":"Flower Mound","Location":"","Articles":[
+	{"Name":"Official Web Site","Location":"http://www.flower-mound.com/"},
+	{"Name":"City Statistics","Location":"http://www.bestplaces.net/zip-code/Flower_Mound_TX-77502200000.aspx"},
+	{"Name":"Public Libraries","Location":"http://nces.ed.gov/surveys/libraries/librarysearch/library_list.asp?Search=1&Zip=75022&Miles=15"},
+	{"Name":"Local Schools","Location":"http://www.greatschools.net/modperl/bycity/TX/?stateselect=TX&name=&market=&rating=&fuzzy=1&city=Flower%20Mound&schlname=&link="},
+	{"Name":"Elected Officials","Location":"http://capwiz.com/yo-demo/state/main/?state=TX&azip=75022&view=myofficials"},
+	{"Name":"Flower Mound Construction Plans","Location":"http://www.flower-mound.com/construct/construct_info.php"}
+]},
+{"Name":"Lewisville","Location":"","Articles":[
+	{"Name":"Official Web Site","Location":"http://www.cityoflewisville.com/"},
+	{"Name":"City Statistics","Location":"http://www.bestplaces.net/zip-code/Lewisville_TX-77502900000.aspx"},
+	{"Name":"Public Libraries","Location":"http://nces.ed.gov/surveys/libraries/librarysearch/library_list.asp?Search=1&Zip=75029&Miles=15"},
+	{"Name":"Local Schools","Location":"http://www.greatschools.net/modperl/bycity/TX/?stateselect=TX&name=&market=&rating=&fuzzy=1&city=Lewisville&schlname=&link="},
+	{"Name":"Elected Officials","Location":"http://capwiz.com/yo-demo/state/main/?state=TX&azip=75029&view=myofficials"}
+]},
+{"Name":"Highland Village","Location":"","Articles":[
+	{"Name":"Official Web Site","Location":"http://www.highlandvillage.org/"},
+	{"Name":"City Statistics","Location":"http://www.bestplaces.net/city/Highland_Village_TX-54833848000.aspx"},
+	{"Name":"Local Schools","Location":"http://www.greatschools.net/modperl/bycity/TX/?stateselect=TX&name=&market=&rating=&fuzzy=1&city=Highland%20Village&schlname=&link="},
+	{"Name":"Elected Officials","Location":"http://capwiz.com/yo-demo/state/main/?state=TX&azip=&view=myofficials"}
+]}
+],
+"Areas":[
+],
+"ExpertAdvice":[
+],
+"Specializations":[
+]}

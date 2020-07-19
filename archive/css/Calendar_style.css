@@ -1,0 +1,93 @@
+body
+	{
+	font-family: "Trebuchet MS", "Sans Serif";
+	font-size: 10pt;
+	}
+.calevent    
+	{ 
+	font-family: Tahoma; 
+	font-size: 7pt;
+	text-decoration:none;
+	color: 493306;
+	}
+
+.completecalevent    
+	{ 
+	font-family: Tahoma; 
+	font-size: 7pt; 
+	text-decoration:line-through;
+	color: 493306;
+	}
+
+.CalTable
+	{
+	background-color: #3471B0;
+	}
+
+.CalHeading
+	{
+	background-color: #493306;
+	color: #FFE187;
+	font-weight: bold;
+	font-size: 12pt
+	}
+
+.CalDayHeading
+	{
+	background-color: #FFE187;
+	Font-weight: bold;;
+	color: 493306;
+	font-size: 10pt
+	}	
+	
+.CalNoDay
+	{
+	font-family: "Trebuchet MS", "Sans Serif";
+	font-size: 10pt;
+	background-color: #FFFAF0;
+	}
+
+.CalDay
+	{
+	background-color: #FFFAF0;
+	}
+	
+.CalToDay
+	{
+	background-color: #FFE89F;
+	}
+
+a.CalDaylink
+	{
+	color: navy;
+	font-weight: bold;
+	font-size: 12pt;
+	}
+
+a:hover.CalDaylink
+	{
+	text-decoration: none;
+	}
+
+a.CalEventlink
+	{
+	color: navy;
+	font-size: 8pt;
+	line-height: 110%;
+	}
+.DayHeading
+{
+	background-color: #FFE187;
+	text-align:center;
+	font-weight:bold;
+	font-size: 10pt;
+	color: 493306;
+}
+.CurrentDayHeading
+{
+	background-color: #493306;
+	text-align:center; 
+	color:#FFE187; 
+	font-weight:bold;
+	font-size: 10pt
+}
